@@ -1977,9 +1977,7 @@ router.get('/blackpink', async(req, res, next) => {
     text,
   ])
   .then((data) => {
-    hasil = await fetch(data).then(v => v.buffer())
-         await fs.writeFileSync(__path +'/tmp/maker.jpg', hasil)
-        res.sendFile(__path+'/tmp/maker.jpg')
+    res.json(data)
   })
   .catch((err) => console.log(err));
   } else {
