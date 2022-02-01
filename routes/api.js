@@ -218,6 +218,23 @@ router.get('/ramaljodoh', async(req, res, next) => {
   }
 });
 
+router.get('/jagokata', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  const kata = req.query.kata;
+  
+  if(!kata) return res.json(loghandler.notkata)
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)){
+  jagokata(kata)
+  .then((result) => {
+    res.json(result.data)
+  });
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
 router.get('/dl/joox', async(req, res, next) => {
   const apikey = req.query.apikey;
   const query = req.query.query;
