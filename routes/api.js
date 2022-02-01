@@ -240,12 +240,132 @@ router.get('/jagokata', async(req, res, next) => {
 Random Fitur
 */
 
+router.get('/aesthetic', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/aesthetic.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/cosplay', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/cosplay.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/husbu', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/husbu.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
 router.get('/loli', async(req, res, next) => {
   const apikey = req.query.apikey;
   if(!apikey) return res.json(loghandler.notparam)
   
   if(listkey.includes(apikey)) {
   var waif = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/loli.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/milf', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/milf.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/waifu', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/waifu.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/cecan', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/bagusganz8/BagusBot-Api/main/Random/cecan.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/darkjokes', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/bagusganz8/BagusBot-Api/main/Random/darkjoke.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/meme', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/bagusganz8/BagusBot-Api/main/Random/darkjoke.json`)).data
   let hasil = waif[Math.floor(Math.random() * (waif.length))]
   data = await fetch(hasil).then(v => v.buffer())
   await fs.writeFileSync(__path +'/tmp/image.jpg', data)
@@ -1469,29 +1589,6 @@ res.json(loghandler.invalidKey)
 }
 })
 
-router.get('/random/meme', async (req, res, next) => {
-        var Apikey = req.query.apikey
-            
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
-
-       fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/meme`))
-        .then(response => response.json())
-        .then(data => {
-        var result = data;
-             res.json({
-                 result
-             })
-         })
-         .catch(e => {
-         	res.json(loghandler.error)
-})
-} else {
-res.json(loghandler.invalidKey)
-}
-})
-
-
 router.get('/info/kodepos', async (req, res, next) => {
         var Apikey = req.query.apikey,
 	    kota = req.query.kota
@@ -1868,626 +1965,25 @@ res.json(loghandler.invalidKey)
 * @Maker
 **/
 
-
-
-router.get("/photooxy/shadow", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pShadow(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/romantic", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pRomantic(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-// @PHOTOOXY
-
-router.get("/photooxy/smoke", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pSmoke(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/burn-papper", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pBurnPapper(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/naruto", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pNaruto(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/love-message", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pLoveMsg(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/message-under-grass", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pMsgGrass(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/glitch", async(req, res, next) => {
-  const text1 = req.query.text1;
-  const text2 = req.query.text2;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!text2) return res.json(loghandler.nottext2)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pGlitch(text1, text2)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/double-heart", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pDoubleHeart(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/coffe-cup", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pCoffeCup(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/love-text", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pLoveText(text1)
-    .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(error)
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-router.get("/photooxy/butterfly", async(req, res, next) => {
-  const text1 = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text1) return res.json(loghandler.nottext1)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  pButterfly(text1)
-  .then((data) => {
-      const result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((error) => {
-      res.json(loghandler.error)
-    })
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
-
-/*
-@ AKHIR PHOTOOXY
-*/
-/*
-@ TEXTPROME
-*/
-router.get('/textpro/logo-wolf', async(req, res, next) => {
-  const apikey = req.query.apikey;
+router.get('/maker/harta-tahta', async(req, res, next) => {
   const text = req.query.text;
-  const text2 = req.query.text2;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  if(!text2) return res.json(loghandler.nottext2)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/create-wolf-logo-black-white-937.html", [
-    text, text2
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/natural-leaves', async(req, res, next) => {
-
   const apikey = req.query.apikey;
-
-  const text = req.query.text;
   
-  if(!apikey) return res.json(loghandler.notparam)
   if(!text) return res.json(loghandler.nottext)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/natural-leaves-text-effect-931.html", [
-    text,
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/logo-wolf2', async(req, res, next) => {
-
-  const apikey = req.query.apikey;
-
-  const text = req.query.text;
-  const text2 = req.query.text2;
-  
   if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  if(!text2) return res.json(loghandler.nottext2)
   
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/create-wolf-logo-galaxy-online-936.html", [
-    text, text2
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/logo-wolf', async(req, res, next) => {
-
-  const apikey = req.query.apikey;
-
-  const text = req.query.text;
-  const text2 = req.query.text2;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  if(!text2) return res.json(loghandler.nottext2)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/matrix-style-text-effect-online-884.html", [
-    text,
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/logo-wolf', async(req, res, next) => {
-
-  const apikey = req.query.apikey;
-
-  const text = req.query.text;
-  const text2 = req.query.text2;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  if(!text2) return res.json(loghandler.nottext2)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/firework-sparkle-text-effect-930.html", [
-    text,
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/thunder', async(req, res, next) => {
-
-  const apikey = req.query.apikey;
-
-  const text = req.query.text;
-  const text2 = req.query.text2;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  if(!text2) return res.json(loghandler.nottext2)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/thunder-text-effect-online-881.html", [
-    text,
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/black-pink', async(req, res, next) => {
-
-  const apikey = req.query.apikey;
-
-  const text = req.query.text;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/create-blackpink-logo-style-online-1001.html", [
-    text,
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/drop-water', async(req, res, next) => {
-
-
-
-  const apikey = req.query.apikey;
-
-  const text = req.query.text;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/dropwater-text-effect-872.html", [
-    text,
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/christmas', async(req, res, next) => {
-
-  const apikey = req.query.apikey;
-
-  const text = req.query.text;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/create-a-christmas-holiday-snow-text-effect-1007.html", [
-    text,
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/3d-gradient', async(req, res, next) => {
-  const apikey = req.query.apikey;
-  const text = req.query.text;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/3d-gradient-text-effect-online-free-1002.html", [
-    text,
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/textpro/porn-hub', async(req, res, next) => {
-
-  const apikey = req.query.apikey;
-
-  const text = req.query.text1;
-  const text2 = req.query.text2;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!text) return res.json(loghandler.nottext1)
-  if(!text2) return res.json(loghandler.nottext2)
-  
-  if(listkey.includes(apikey)){
-    zrapi 
-  .textpro("https://textpro.me/pornhub-style-logo-online-generator-free-977.html", [
-    text, text2
-  ])
-  .then((data) => {
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data
-    })
-  })
-  .catch((err) => console.log(err));
+  if(listkey.includes(apikey)) {
+  var hasil = (await axios.get(`https://me-bagus.herokuapp.com/api/creator/blackpink?&text=${text}&apikey=b`)).data
+  data = await fetch(hasil.data).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/maker.jpg', data)
+  res.sendFile(__path +'/tmp/maker.jpg')
   } else {
     res.json(loghandler.invalidKey)
   }
 });
 
 /*
-@AKHIR TEXTPRO ME
+@BAGUS
 */
 
 router.get('/maker/dadu', async (req, res, next) => {
