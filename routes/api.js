@@ -126,6 +126,15 @@ loghandler = {
     notnama: {
         message: 'masukan parameter nama'
     },
+    notmimpi: {
+        message: 'masukan parameter mimpi'
+    },
+    notnama2: {
+        message: 'masukan parameter nama2'
+    },
+    notnomor: {
+        message: 'masukan parameter nomor'
+    },
     error: {
         message: 'error silahkan lapor owner, https://dir-email.bagusadi5.repl.co'
     }
@@ -150,6 +159,59 @@ router.get('/artinama', async(req, res, next) => {
   artiNama(nama)
   .then((result) => {
     res.json(result.result)
+  });
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/artimimpi', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  const mimpi = req.query.mimpi;
+  
+  if(!mimpi) return res.json(loghandler.notmimpi)
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)){
+  artiMimpi(mimpi)
+  .then((result) => {
+    res.json(result.result)
+  });
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/nomorhoki', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  const nomor = req.query.nomor;
+  
+  if(!nomor) return res.json(loghandler.notnomor)
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)){
+  nomorHoki(nomor)
+  .then((result) => {
+    res.json(result.result)
+  });
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+router.get('/ramaljodoh', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  const nama = req.query.nama;
+  const nama2 = req.query.nama2;
+  
+  if(!nama) return res.json(loghandler.notnama)
+  if(!nama2) return res.json(loghandler.notnama2)
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)){
+  ramalJodoh(nama,nama2)
+  .then((result) => {
+    res.json(result)
   });
   } else {
     res.json(loghandler.invalidKey)
