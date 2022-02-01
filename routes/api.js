@@ -8,7 +8,7 @@ var zahirr = db.get("zahirr");
 	console.log('')  
 }
  
-var creator = "@only_fxc7"
+var creator = "@Bagus"
 var secure = require('ssl-express-www');
 var cors = require('cors');
 var fetch = require('node-fetch');
@@ -24,6 +24,7 @@ var router  = express.Router();
 var { color, bgcolor } = require(__path + '/lib/color.js');
 var { fetchJson } = require(__path + '/lib/fetcher.js');
 var options = require(__path + '/lib/options.js');
+var { artiNama, artiMimpi, ramalJodoh, nomorHoki, pinterest, igDownloader, lirikLagu, mediafireDl, wikiSearch, happymodSearch, playstore, linkwa, jagokata, herodetails, herolist, styleText, joox, HentaiVid, dafontSearch, dafontDown, apkmody, apkmirror } = require("./../lib/utils/sybagus")
 var {
 	Searchnabi,
 	Gempa
@@ -81,91 +82,52 @@ var cookie = process.env.COOCKIE
 */
 loghandler = {
     notparam: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter apikey'
     },
     noturl: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter url'
     },
     notquery: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukkan parameter query'
         },
     notkata: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter kata'
     },
     nottext: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter text'
     },
     nottext2: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter text2'
     },
     notnabi: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter nabi'
     },
     nottext3: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter text3'
     },
     nottheme: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter theme'
     },
     notusername: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter username'
     },
     notvalue: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'masukan parameter value'
     },
     invalidKey: {
-        status: false,
-        creator: `${creator}`,
-        code: 406,
         message: 'apikey invalid'
     },
     invalidlink: {
-        status: false,
-        creator: `${creator}`,
         message: 'error, mungkin link anda tidak valid.'
     },
     invalidkata: {
-        status: false,
-        creator: `${creator}`,
         message: 'error, mungkin kata tidak ada dalam api.'
     },
+    notnama: {
+        message: 'masukan parameter nama'
+    },
     error: {
-        status: false,
-        creator: `${creator}`,
-        message: 'emror bruh'
+        message: 'error silahkan lapor owner, https://dir-email.bagusadi5.repl.co'
     }
 }
 
@@ -175,41 +137,28 @@ Akhir Pesan Error
 
 router.use(favicon(__path + "/views/favicon.ico"));
 
-const listkey = ["Fxc7", "manogay"];
+const listkey = ["bagus", "b","alok","hehe","apinyafree","gausahdiganti"];
 
-router.post("/apikey", async (req, res, next) => {
-  const key = req.query.key;
-  if(listkey.includes(key)) {
-    res.json({
-      message: 'apikey sudah terdaftar'
-    });
+router.get('/artinama', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  const query = req.query.query;
+  
+  if(!nama) return res.json(loghandler.notnama)
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)){
+  artiNama(query)
+  .then((result) => {
+    res.json(result.result)
+  });
   } else {
-    listkey.push(key);
-    res.json({
-      message: `berhasil mendaftarkan ${key} Kedatabase apikey`
-    });
+    res.json(loghandler.invalidKey)
   }
 });
 
-// delete apikey
-
-router.delete("/apikey", async(req, res, next) => {
-	const key = req.query.delete;
-	if(listkey.includes(key)) {
-		res.json({
-			message: 'apikey tidak ada sebelumnya'
-			})
-			} else {
-	listkey.splice(key, 1)
-	res.json({
-		message: 'apikey berhasil dihapus' 
-});
- }
-});
-
-router.get('/music/joox', async(req, res, next) => {
-  const query = req.query.query;
+router.get('/dl/joox', async(req, res, next) => {
   const apikey = req.query.apikey;
+  const query = req.query.query;
   
   if(!query) return res.json(loghandler.notquery)
   if(!apikey) return res.json(loghandler.notparam)
@@ -225,31 +174,6 @@ router.get('/music/joox', async(req, res, next) => {
   }
 });
 
-router.get('/music/spotify', async(req, res, next) => {
-  const apikey = req.query.apikey;
-  const query = req.query.query;
-  if(!apikey) return res.json(loghandler.notparam)
-  if(!query) return res.json(loghandler.notquery)
-  
-  if(listkey.includes(apikey)){
-  fetch(encodeURI(`https://alpin-api-2021.herokuapp.com/api/spotify?apikey=alpin1&q=${query}`))
-  .then(response => response.json())
-        .then(hasil => {
-
-        var result = hasil.data;
-             res.json({
-                 status : true,
-                 creator : `${creator}`,
-                 result
-             })
-         })
-         .catch(e => {
-         	res.json(loghandler.error)
-})
-} else {
-  res.json(loghandler.invalidKey)
-}
-})
 router.get('/download/ytmp3', async(req, res, next) => {
   const url = req.query.url;
   const apikey = req.query.apikey;
@@ -579,7 +503,7 @@ res.json(loghandler.invalidKey)
 }
 })
 
-router.get('/short/tinyurl', async (req, res, next) => {
+router.get('/shortlink', async (req, res, next) => {
     var Apikey = req.query.apikey,
         url = req.query.url
 
@@ -1101,43 +1025,6 @@ res.json(loghandler.invalidKey)
 }
 })
 
-router.get('/search/image', async(req, res, next) => {
-  const apikey = req.query.apikey;
-  const query = req.query.query;
-  
-  if(!query) return res.json(loghandler.notquery)
-  if(!apikey) return res.json(loghandler.notparam)
-  
-  if(listkey.includes(apikey)){
-    try {
-        var options = {
-            url: `http://results.dogpile.com/serp?qc=images&q=${query}`,
-            method: "GET",
-            headers: {
-                "Accept": "text/html",
-                "User-Agent": "Chrome"
-            }
-        }
-        request(options, function(error, response, responseBody) {
-            if (error) return
-
-            $ = cheerio.load(responseBody)
-            var links = $(".image a.link")
-            var cari = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"))
-            if (!cari.length) return
-            var hasil = cari[Math.floor(Math.random() * cari.length)]
-        res.json({
-              status: true,
-              code: 200,
-              creator: `${creator}`,
-              result: hasil
-            })
-        })
-    } catch (e) {}
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-})
 router.get('/wallpaper/cyberspace', async (req, res, next) => {
         var Apikey = req.query.apikey
             
@@ -1578,41 +1465,6 @@ res.json(loghandler.invalidKey)
 }
 })
 
-router.get('/anime/loli', async(req, res, next) => {
-    var apikey = req.query.apikey
-    if (!apikey) return res.json(loghandler.notparam)
-    if(listkey.includes(apikey)){
-    try {
-        var options = {
-            url: "http://results.dogpile.com/serp?qc=images&q= " + "Loli",
-            method: "GET",
-            headers: {
-                "Accept": "text/html",
-                "User-Agent": "Chrome"
-            }
-        }
-        request(options, function(error, response, responseBody) {
-            if (error) return
-
-            $ = cheerio.load(responseBody)
-            var links = $(".image a.link")
-            var cari = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"))
-            if (!cari.length) return
-            var hasil = cari[Math.floor(Math.random() * cari.length)]
-        res.json({
-              status: true,
-              code: 200,
-              creator: `${creator}`,
-              result: hasil
-            })
-        })
-    } catch (e) {}
-    } else {
-      res.json(loghandler.invalidKey)
-    }
-});
-
-
 router.get('/anime/manga', async (req, res, next) => {
         var Apikey = req.query.apikey,
 	    search = req.query.search
@@ -1636,18 +1488,22 @@ res.json(loghandler.invalidKey)
 }
 })
 
+/**
+* @Game
+**/
 
-router.get('/kuis/caklontong', async (req, res, next) => {
+router.get('/game/asahotak', async (req, res, next) => {
         var Apikey = req.query.apikey
 	if(!Apikey) return res.json(loghandler.notparam)
 	if(listkey.includes(Apikey)){
-       fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/quote?type=caklontong`))
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/asahotak.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
-             res.json({
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
                  result
-             })
+             )
          })
          .catch(e => {
          	res.json(loghandler.error)
@@ -1657,32 +1513,256 @@ res.json(loghandler.invalidKey)
 }
 })
 
+router.get('/game/caklontong', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/caklontong.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
 
-router.get('/kuis/tebakGambar', async (req, res, next) => {
-  var apikey = req.query.apikey;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  let result = await tebakGambar()
-  if (result) {
-    const hasil = {
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      image: result.img,
-      jawaban: result.jawaban,
-      clue: result.petunjuk
-    }
-    res.json(hasil)
-  } else {
-    return res.status(408).json({
-      status: res.statusCode,
-      error: 'Emror'
-    })
-  }
-  } else {
-  res.json(loghandler.invalidKey)
-  }
+router.get('/game/siapakahaku', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/siapakahaku.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/susunkata', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/susunkata.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tebakbendera', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakbendera.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tebakgambar', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakgambar.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tebakkabupaten', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakkabupaten.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tebakkalimat', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakkalimat.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tebakkata', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakkata.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tebakkimia', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakkimia.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tebaklirik', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaklirik.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tebaktebakan', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaktebakan.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+router.get('/game/tekateki', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://raw.githubusercontent.com/BochilTeam/database/master/games/tekateki.json`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+        var result = data[Math.floor(Math.random() * data.length)];
+             res.json(
+                 result
+             )
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
 })
 
 /**
@@ -2326,74 +2406,6 @@ router.get('/maker/dadu', async (req, res, next) => {
   }
 });
 
-router.get('/asupan', async (req, res, next) => {
-  Apikey = req.query.apikey;
-  
-  if(!Apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(Apikey)) {
-    const asupan = JSON.parse(fs.readFileSync(__path +'/data/asupan.json'));
-    const Asupan = asupan[Math.floor(Math.random() * asupan.length)];
-    let hasil = Asupan.asupan;
-    data = await fetch(hasil).then(v => v.buffer())
-    await fs.writeFileSync(__path +'/tmp/asupan.mp4', data)
-    res.sendFile(__path +'/tmp/asupan.mp4')
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
- 
-router.get("/maker/nulis", async (req, res, next) => {
-  
-  apikey = req.query.apikey;
-  text = req.query.text;
-  
-  if(!text) return res.json(loghandler.nottext)
-  if(!apikey) return res.json(loghandler.notparam)
-  
-  if(listkey.includes(apikey)) {
-    let hasil = 'https://api.zeks.xyz/api/nulis?text='+ text +'&apikey=apivinz' 
-    data = await fetch(hasil).then(v => v.buffer())
-    await fs.writeFileSync(__path +'/tmp/nulis.jpeg', data)
-    res.sendFile(__path +'/tmp/nulis.jpeg')
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-})
-
-router.get('/maker/ttp', async (req, res, next) => {
-
-  Apikey = req.query.apikey;
-  if (!req.query.text) return res.json({ status: 404, error: 'masukkan parameter text'})
-  if(!Apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(Apikey)) {
-  random = new Date
-data = await fetch(`https://api.areltiyan.site/sticker_maker?text=${encodeURIComponent(req.query.text)}`).then(v => v.json())
-         base64 = data.base64
-         var buffer = base64.slice(22)
-         await fs.writeFileSync(__path +`/tmp/ttp.png`, buffer, 'base64')
-        res.sendFile(__path+'/tmp/ttp.png')
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/maker/attp', async(req, res, next) => {
-
-  const text = req.query.text;
-  const apikey = req.query.apikey;
-  if(!text) return res.json(loghandler.nottext)
-  if(!apikey) return res.json(loghandler.notparam)
-  
-  if(listkey.includes(apikey)) {
-  let hasil = 'https://alpin-api-2021.herokuapp.com/api/attp?text='+ text +'&apikey=alpin1'
-  data = await fetch(hasil).then(v => v.buffer())
-  await fs.writeFileSync(__path +'/tmp/attp.gif', data)
-  res.sendFile(__path +'/tmp/attp.gif')
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-})
-
 router.get('/maker/harta-tahta', async(req, res, next) => {
   const text = req.query.text;
   const apikey = req.query.apikey;
@@ -2406,21 +2418,6 @@ router.get('/maker/harta-tahta', async(req, res, next) => {
   data = await fetch(hasil).then(v => v.buffer())
   await fs.writeFileSync(__path +'/tmp/tahta.jpg', data)
   res.sendFile(__path +'/tmp/tahta.jpg')
-  } else {
-    res.json(loghandler.invalidKey)
-  }
-});
-
-router.get('/maker/skatch', async(req, res, next) => {
-  const apikey = req.query.apikey;
-  const url = req.query.url;
-  if(!url) return res.json(loghandler.noturl)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  let hasil = `https://lindow-api.herokuapp.com/api/sketcheffect?img=${url}&apikey=LindowApi`
-  data = await fetch(hasil).then(v => v.buffer())
-         await fs.writeFileSync(__path +'/tmp/skatch.jpeg', data)
-        res.sendFile(__path+'/tmp/skatch.jpeg')
   } else {
     res.json(loghandler.invalidKey)
   }
@@ -2487,10 +2484,9 @@ router.get('/cekapikey', async(req, res, next) => {
   if(!apikey) return res.json(loghandler.notparam)
   if(listkey.includes(apikey)) {
     res.json({
-      status: 'active',
-      creator: `${creator}`,
+      status: 'ada',
       apikey: `${apikey}`,
-      message: 'APIKEY ACTIVE'
+      message: 'apikey lu ada dan masih aktif'
     })
   } else {
     res.json(loghandler.invalidKey)
