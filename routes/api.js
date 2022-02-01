@@ -141,13 +141,13 @@ const listkey = ["bagus", "b","alok","hehe","apinyafree","gausahdiganti"];
 
 router.get('/artinama', async(req, res, next) => {
   const apikey = req.query.apikey;
-  const query = req.query.query;
+  const nama = req.query.nama;
   
   if(!nama) return res.json(loghandler.notnama)
   if(!apikey) return res.json(loghandler.notparam)
   
   if(listkey.includes(apikey)){
-  artiNama(query)
+  artiNama(nama)
   .then((result) => {
     res.json(result.result)
   });
