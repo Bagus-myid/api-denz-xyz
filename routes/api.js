@@ -9,6 +9,7 @@ var zahirr = db.get("zahirr");
 }
  
 var creator = "@Bagus"
+var axios = require('axios')
 var secure = require('ssl-express-www');
 var cors = require('cors');
 var fetch = require('node-fetch');
@@ -230,6 +231,25 @@ router.get('/jagokata', async(req, res, next) => {
   .then((result) => {
     res.json(result.data)
   });
+  } else {
+    res.json(loghandler.invalidKey)
+  }
+});
+
+/*
+Random Fitur
+*/
+
+router.get('/loli', async(req, res, next) => {
+  const apikey = req.query.apikey;
+  if(!apikey) return res.json(loghandler.notparam)
+  
+  if(listkey.includes(apikey)) {
+  var waif = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/loli.json`)).data
+  let hasil = waif[Math.floor(Math.random() * (waif.length))]
+  data = await fetch(hasil).then(v => v.buffer())
+  await fs.writeFileSync(__path +'/tmp/image.jpg', data)
+  res.sendFile(__path +'/tmp/image.jpg')
   } else {
     res.json(loghandler.invalidKey)
   }
