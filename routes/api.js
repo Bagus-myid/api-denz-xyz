@@ -1962,28 +1962,33 @@ res.json(loghandler.invalidKey)
 })
 
 /**
-* @Maker
+* @Maker Text Pro
 **/
 
-router.get('/maker/harta-tahta', async(req, res, next) => {
-  const text = req.query.text;
+router.get('/blackpink', async(req, res, next) => {
   const apikey = req.query.apikey;
-  
-  if(!text) return res.json(loghandler.nottext)
+  const text = req.query.text;
   if(!apikey) return res.json(loghandler.notparam)
+  if(!text) return res.json(loghandler.nottext)
   
-  if(listkey.includes(apikey)) {
-  var hasil = (await axios.get(`https://me-bagus.herokuapp.com/api/creator/blackpink?&text=${text}&apikey=b`)).data
-  data = await fetch(hasil.data).then(v => v.buffer())
-  await fs.writeFileSync(__path +'/tmp/maker.jpg', data)
-  res.sendFile(__path +'/tmp/maker.jpg')
+  if(listkey.includes(apikey)){
+    zrapi 
+  .textpro("https://textpro.me/create-blackpink-logo-style-online-1001.html", [
+    text,
+  ])
+  .then((data) => {
+    hasil = await fetch(data).then(v => v.buffer())
+         await fs.writeFileSync(__path +'/tmp/maker.jpg', hasil)
+        res.sendFile(__path+'/tmp/maker.jpg')
+  })
+  .catch((err) => console.log(err));
   } else {
     res.json(loghandler.invalidKey)
   }
 });
 
 /*
-@BAGUS
+@Maker Photoxy
 */
 
 router.get('/maker/dadu', async (req, res, next) => {
